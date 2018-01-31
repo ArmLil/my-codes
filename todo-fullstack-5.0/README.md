@@ -22,15 +22,15 @@ use the API for these functions
 
 - [x] /api/tweets POST
 
-- [ ] /api/tweets/{id} PUT
+- [x] /api/tweets/{id} PUT
 
-- [ ] /api/tweets/{id} DELETE
+- [x] /api/tweets/{id} DELETE
 
 - [x] /api/tweets/{id} GET > single tweet
 
 
 *** SQL ***
 
-- [ ] SELECT TWEETS
-- [ ] UPDATE TWEETS
-- [ ] DELETE TWEETS
+- [x] SELECT TWEETS
+- [x] UPDATE TWEETS
+- [x] DELETE TWEETS
