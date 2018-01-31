@@ -1,0 +1,14 @@
+{
+  "name": "tweeter",
+  "version": "1.3.0",
+  "description": "Website and API using Node, Pug, and... ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ll, vachi",
+  "license": "ISC",
+  "dependencies": {
+    "pug": "^2.0.0-rc.4"
+  }
+}

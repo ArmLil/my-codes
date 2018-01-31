@@ -1,0 +1,18 @@
+{
+	"tweets": [
+		{
+			"user": "Dasha",
+			"tweet": "I am a doctor",
+			"id": "150592626866035",
+			"colour": "rgb(34, 0, 54)",
+			"update": "Update"
+		},
+		{
+			"user": "Margo",
+			"tweet": "I am s student",
+			"create": "Create",
+			"id": "1506429916630",
+			"colour": "rgb(95, 0, 23)"
+		}
+	]
+}

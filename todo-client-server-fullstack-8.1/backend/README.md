@@ -5,7 +5,7 @@ nodejs(hapi js), sqlite, hapi-swagger, ...
 hapi-swager is a plugin to watch and test the API interface in
 http://localhost:5000/documentation
 
-if you want to spawn a huge mount of users run spawnTweets.js
+if you want to spawn a huge amount of users run spawnTweets.js
 node spawnTweets.js
 
 endpoints
@@ -17,9 +17,9 @@ endpoints
 /{id} > render single template by id
 
 use the API for these functions
-/create?
-/{id}?delete
-/{id}?update
+ - /create?
+ - /{id}?delete
+ - /{id}?update
 
 
 ***API*** respond in JSON

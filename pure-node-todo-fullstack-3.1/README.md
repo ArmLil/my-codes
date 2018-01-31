@@ -1,3 +1,6 @@
+This full stack project is written by pure node.js without any frameworks
+as a database it uses json objects
+
 endpoints
 
 ***WEB*** respond in html
@@ -7,9 +10,9 @@ endpoints
 /{id} > render single template by id
 
 use the API for these functions
-/create?
-/{id}?delete
-/{id}?update
+ - /create?
+ - /{id}?delete
+ - /{id}?update
 
 
 ***API*** respond in JSON
