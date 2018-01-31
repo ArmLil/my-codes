@@ -23,7 +23,7 @@ endpoints
 /{id} > render single template by id
 
 use the API for these functions
-/create?
+ < /create?
 /{id}?delete
 /{id}?update
 
