@@ -7,7 +7,7 @@ hapi-swager is a plugin to watch and test the API interface in
 http://localhost:5000/documentation
 
 
-and also it does AJAX (xhr) calls with javascript code switched to templates/tweets.pug file
+The project also includes AJAX (xhr) calls with javascript code switched to templates/tweets.pug file
 
 To run this project clone it from github.
 After clone you need to move to  lesson-fullstack-5.0 then install node_modules
@@ -20,12 +20,12 @@ endpoints
 
 - [x] / > render all template
 
-/{id} > render single template by id
+ - /{id} > render single template by id
 
 use the API for these functions
- > /create?
- > /{id}?delete
- > /{id}?update
+ - /create?
+ - /{id}?delete
+ - /{id}?update
 
 
 ***API*** respond in JSON
