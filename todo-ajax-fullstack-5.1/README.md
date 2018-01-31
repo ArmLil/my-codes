@@ -24,8 +24,8 @@ endpoints
 
 use the API for these functions
  > /create?
-/{id}?delete
-/{id}?update
+ > /{id}?delete
+ > /{id}?update
 
 
 ***API*** respond in JSON
