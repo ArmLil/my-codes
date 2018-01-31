@@ -18,7 +18,7 @@ endpoints
 
 ***WEB*** respond in html
 
-- [x] / > render all template
+-  / > render all template
 
  - /{id} > render single template by id
 
