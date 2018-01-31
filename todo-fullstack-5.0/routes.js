@@ -1,10 +1,26 @@
-const Database = require('./database')
 const Handlers = require('./handlers')
 const Templates = require('./templates')
 const Utils = require('./utils')
 
 const Routes = []
 module.exports = Routes
+
+Routes.push({
+  method: 'GET',
+  path: '/static/favicon.ico',
+  handler: (req, reply) => reply.file('favicon.ico')
+})
+
+Routes.push({
+  method: 'GET',
+  path: '/{param*}',
+  handler: (req, reply) => reply('The page you are looking for does not exist.'),
+  config: {
+    auth: false,
+    description: 'This redirects to /error page',
+    tags : ['template']
+  }
+})
 
 Routes.push({
   method: 'GET',

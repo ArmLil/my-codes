@@ -1,4 +1,5 @@
 'use strict'
+const Path = require('path');
 const Hapi = require('hapi')
 const HapiSwagger = require('hapi-swagger')
 const Inert = require('inert')
@@ -15,6 +16,11 @@ server.connection({
   port: 5000,
   router: {
     stripTrailingSlash: true
+  },
+  routes: {
+    files: {
+      relativeTo: Path.join(__dirname, 'public')
+    }
   }
 })
 server.register([
@@ -29,6 +35,7 @@ server.register([
       }
     }
   }], (error) => {
+    if (error) console.error(('register error'), error)
     server.views({
       engines: { pug: require('pug') },
       path: __dirname + '/public',

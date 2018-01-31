@@ -1,3 +1,7 @@
+This is a fullstack project which uses
+nodejs(hapi js), Jade/pug, sqlite.
+After clone you need to move to lesson-fullstack-5.0 then to write in command line npm install
+
 endpoints
 
 ***WEB*** respond in html
@@ -30,10 +34,3 @@ use the API for these functions
 - [ ] SELECT TWEETS
 - [ ] UPDATE TWEETS
 - [ ] DELETE TWEETS
-
-
-Lesson 5 notes
-https://hapijs.com/api
-https://github.com/glennjones/hapi-swagger
-https://www.npmjs.com/package/vision#jade
-https://hapijs.com/tutorials/views
