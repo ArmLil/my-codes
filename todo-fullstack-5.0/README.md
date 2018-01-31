@@ -1,6 +1,19 @@
+Originaly was implemented in https://github.com/ArmLil/pure-node/tree/master/lesson-5.0
 This is a fullstack project which uses
-nodejs(hapi js), Jade/pug, sqlite.
-After clone you need to move to lesson-fullstack-5.0 then to write in command line npm install
+
+nodejs(hapi js), Jade/pug, sqlite, hapi-swagger, ...
+
+hapi-swager is a plugin to watch and test the API interface in
+http://localhost:5000/documentation
+
+To run this project clone it from github.
+After clone you need to move to  lesson-fullstack-5.0
+cd path/to/todo-fullstack-5.0
+
+then input in command line
+npm install
+
+
 
 endpoints
 

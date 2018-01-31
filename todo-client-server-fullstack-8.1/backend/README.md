@@ -1,3 +1,13 @@
+server side
+
+nodejs(hapi js), sqlite, hapi-swagger, ...
+
+hapi-swager is a plugin to watch and test the API interface in
+http://localhost:5000/documentation
+
+if you want to spawn a huge mount of users run spawnTweets.js
+node spawnTweets.js
+
 endpoints
 
 ***WEB*** respond in html
@@ -18,30 +28,15 @@ use the API for these functions
 
 - [x] /api/tweets POST
 
-- [ ] /api/tweets/{id} PUT
+- [x] /api/tweets/{id} PUT
 
-- [ ] /api/tweets/{id} DELETE
+- [x] /api/tweets/{id} DELETE
 
 - [x] /api/tweets/{id} GET > single tweet
 
 
 *** SQL ***
 
-- [ ] SELECT TWEETS
-- [ ] UPDATE TWEETS
-- [ ] DELETE TWEETS
-
-
-Lesson 5 notes
-https://hapijs.com/api
-https://github.com/glennjones/hapi-swagger
-https://www.npmjs.com/package/vision#jade
-https://hapijs.com/tutorials/views
-
-Lesson 5 continued use
-https://developer.mozilla.org/en-US/docs/AJAX/Getting_Started
-https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
-
-
-- [ ] added xhr create /api/tweet POST
-- [ ] when create is completed, you have to update the tweets, which means you need to run a loadTweets function, that will pull again from the api
+- [x] SELECT TWEETS
+- [x] UPDATE TWEETS
+- [x] DELETE TWEETS

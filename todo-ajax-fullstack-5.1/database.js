@@ -4,7 +4,6 @@ const sqlite3 = require('sqlite3').verbose()
 const Utils = require('./utils')
 const MESSAGES = require('./messages')
 
-const TWEETS_PATH = './tweets.json'
 const DB = require('./tweets.sql.js')
 const Database = {}
 module.exports = Database

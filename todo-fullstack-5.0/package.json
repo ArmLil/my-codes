@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "ll, vachi, hasmik",
+  "author": "ll, vachi",
   "license": "ISC",
   "dependencies": {
     "hapi": "^16.6.2",
