@@ -1,0 +1,21 @@
+{
+  "name": "tweeter",
+  "version": "1.5.0",
+  "description": "Website and API using Node, Pug, and... ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ll, vachi, hasmik",
+  "license": "ISC",
+  "dependencies": {
+    "boom": "^6.0.0",
+    "hapi": "^16.6.2",
+    "hapi-swagger": "^7.8.1",
+    "inert": "^4.2.1",
+    "joi": "^11.1.1",
+    "pug": "^2.0.0-rc.4",
+    "sqlite3": "^3.1.12",
+    "vision": "^4.1.1"
+  }
+}

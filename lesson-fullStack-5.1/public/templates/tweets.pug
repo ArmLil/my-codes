@@ -1,0 +1,21 @@
+html
+  body
+   div
+    h3(style={margin: 30}) Home Page
+    form#new-tweet
+      fieldset
+        legend New Tweet
+        div
+          <br />
+          label(for='user') Username: &nbsp;
+          input(id='inputUsername' name='user', type='text', placeholder=' your username', required='', autofocus='' )
+        div
+          <br />
+          label(for='tweet') tweet: &nbsp;
+          input(id='inputTweet' name='tweet', type='text', required='', autofocus='')
+        div
+          <br /> &nbsp;
+          button(id='create') Create
+    ul(id='users')
+
+    | <script type="text/javascript" src="/js/tweets.js"></script>

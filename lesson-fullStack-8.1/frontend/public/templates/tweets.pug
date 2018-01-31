@@ -1,0 +1,114 @@
+html
+    head
+        style.
+            .pagination {
+            display: inline-block;
+            }
+            .pagination a {
+            width: 35px;
+            text-align: center;
+            color: black;
+            float: left;
+            margin: 2px;
+            padding: 3px 10px 2px 10px;
+            text-decoration: none;
+            }
+            .pagination a.active {
+            background-color: rgb(133, 138, 250);
+            color: white;
+            }
+            .pagination a:hover:not(.active) {background-color: #ddd;}
+    body
+        div
+        -const query = 'offset='+offset+'&limit='+limit
+           h3(style={margin: 30}) Home Page
+           form#new-tweet(action='/create'+'/'+query method='POST')
+              fieldset
+                  legend New Tweet
+                  div(style={padding: 3})
+                      label(for='user') Username: &nbsp;
+                      input(style={margin: 3} id='inputUsername' name='user', type='text', placeholder=' your username', required='', autofocus='' )
+                  div(style={padding: 3})
+                      label(for='tweet') tweet: &nbsp;
+                      input(style={margin: 3} id='inputTweet' name='tweet', type='text', required='', autofocus='')
+                  div(style={padding: 3})
+                      button(id='create') Create
+        ul#users
+            h4 Tweets
+            each tweet in tweets
+              li
+                form.update-tweet(id=tweet-tweet.id action='/update/'+tweet.id+'/'+query method='POST')
+                  div.form-group
+                    label(for='user' style={color: tweet.colour}) Username: &nbsp; #{tweet.user} &nbsp;
+                    input(style={margin: 3} name='user', type='text', placeholder=' update username', required='', autofocus='')
+
+                  div.form-group
+                    label(for='tweet' style={color: tweet.colour}) tweet: #{tweet.tweet} &nbsp;
+                    input(style={margin: 3} name='tweet', type='text', placeholder=' update tweet', required='', autofocus='')
+                  button Update
+
+                div(style={padding: '5px'})
+                  a(href='search/'+tweet.id+'/'+query style={color: tweet.colour})  id: #{tweet.id}
+                form.delete-tweet(action='/delete/'+tweet.id+'/'+query method='GET')
+                  button Delete
+                br
+            else
+              li There are no tweets
+        div(style={margin: 30})
+          .pagination
+              - if(offset+2 > count) offset = count-1
+              -const url = (_offset ) => '/search?offset='+_offset+'&limit='+limit
+
+              -const currentPage = offset / limit + 1
+              -const lastPage = Math.ceil(count / limit)
+              -const k = currentPage - 5 > 0 ? currentPage - 5 : 1
+              -const n = k + 10 <= lastPage ? k + 10 : lastPage + 1
+
+              -console.log({lastPage}, {k}, {n}, {currentPage}, {count})
+
+              if (k === 1)
+                a
+                  button(disabled='true') START
+              else
+                a(href=url('0'))
+                  button START
+
+
+              if (k === 1)
+                a <<
+              else
+                a(href=url(offset - 6 * limit)) <<
+
+
+              if (offset === 0)
+                a «
+              else
+                a(href=url(offset - limit)) «
+
+
+              -for (let i = k; i < n; ++i)
+                -const offsetLocal = (i - 1) * limit
+                if (offset === offsetLocal)
+                  a.active(href=url(offsetLocal)) #{i}
+                else
+                  a(href=url(offsetLocal)) #{i}
+
+
+              if (currentPage >= lastPage)
+                a »
+              else
+                a(href=url(offset+limit)) »
+
+
+              if (n > lastPage)
+                a >>
+              else
+                a(href=url(offset + 5 * limit)) >>
+
+
+              if (n > lastPage)
+                a
+                  button(disabled='true') END
+              else
+                a(href=url((lastPage-1)*limit))
+                  button END
