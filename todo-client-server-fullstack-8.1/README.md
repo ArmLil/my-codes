@@ -1,6 +1,8 @@
 This project consists of Client Side and Server Side (API)
 
  node.js(hapi.js), pug, sqlite,  
+ 
+ Implemented with pagination
 
 
 ***WEB*** respond in html
