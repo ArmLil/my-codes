@@ -1,5 +1,5 @@
 This full stack project is written by pure node.js without any frameworks
-as a database it uses json objects
+as a database it uses json file and json objects
 
 endpoints
 
@@ -7,7 +7,7 @@ endpoints
 
 - [x] / > render all template
 
-/{id} > render single template by id
+- /{id} > render single template by id
 
 use the API for these functions
  - /create?

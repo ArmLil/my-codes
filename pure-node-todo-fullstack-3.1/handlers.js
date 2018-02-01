@@ -13,9 +13,9 @@ module.exports = Handlers
 const fileExists = fs.existsSync(TWEETS_PATH)
 
 Handlers.favicon = (res) => {
-  res.writeHead(200, {'Content-Type': 'image/x-icon'} );
-  fs.createReadStream(FAVICON).pipe(res);
-  res.end();
+  console.log('favicon handler')
+  res.writeHead(200, {'Content-Type': 'image/x-icon'} )
+  fs.createReadStream(FAVICON).pipe(res)
   return
 }
 
@@ -57,10 +57,8 @@ const apiEndpointHandle = (req) => {
       }
       else if (method === 'PUT') {
         return Utils.getBodyObj(req)
-        .then((tweetObj) => {
-          const tweet = Object.assign({}, tweetObj.tweets[0], {id:idString})
-          return Database.updateTweets(tweet)
-        })
+        .then((tweetObj) => Object.assign({}, tweetObj.tweets[0], {id:idString}))
+        .then(tweet => Database.updateTweets(tweet))
         .then((message) => Utils.successTextResponse(message))
       }
       else if (method === 'DELETE' && !queryObj) {
@@ -119,7 +117,7 @@ const rootEndpointHandle = (req) => {
 }
 
 Handlers.requestCheckEndpoint = (req) => {
-  
+
   if (req.url.split('/')[1] === 'api') {
     console.log('DO API related operations here')
     return apiEndpointHandle(req)

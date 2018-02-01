@@ -1,18 +1,26 @@
 {
 	"tweets": [
 		{
-			"user": "Dasha",
-			"tweet": "I am a doctor",
+			"user": "Masha",
+			"tweet": "Hello",
 			"id": "150592626866035",
 			"colour": "rgb(34, 0, 54)",
 			"update": "Update"
 		},
 		{
-			"user": "Margo",
+			"user": "Yulia",
 			"tweet": "I am s student",
 			"create": "Create",
 			"id": "1506429916630",
-			"colour": "rgb(95, 0, 23)"
+			"colour": "rgb(95, 0, 23)",
+			"update": "Update"
+		},
+		{
+			"user": "Pasha",
+			"tweet": "Privet",
+			"create": "Create",
+			"id": "1517502689801",
+			"colour": "rgb(173, 0, 46)"
 		}
 	]
 }

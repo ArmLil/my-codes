@@ -1,4 +1,6 @@
 html
+  head
+    link(rel='shortcut icon' href='/favicon.ico')
   body
    div
     h3(style={margin: 30}) Home Page
@@ -16,7 +18,7 @@ html
         div
           <br /> &nbsp;
           input(name='create', type='submit', value='Create')
-    ul
+    ol
       h4 Tweets <br />
       each tweet in tweets
         li
