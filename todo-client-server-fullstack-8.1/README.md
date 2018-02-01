@@ -1,4 +1,5 @@
-This project includes Client Side and Server Side
+This project consists of Client Side and Server Side (API)
+ node.js(hapi.js), pug, sqlite,  
 
 
 ***WEB*** respond in html
