@@ -1,5 +1,5 @@
 This full stack project is written by pure node.js without any frameworks.
-To save data it uses json file and json objects
+To save data it uses json file and json objects.
 
 endpoints
 
