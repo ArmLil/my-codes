@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang='en'>
+   <head>
+      <meta charset='UTF-8'>
+      <title>drag-js</title>
+   </head>
+   <body>
+    <div id='root'></div>
+    <script type='text/javascript'>
+    document.addEventListener('mouseover', (ev) => {
+      if (ev.target.value === 1)
+            ev.target.style.cursor = 'move';
+          })
+    createButton = (buttonName, handler) => {
+      const button = document.createElement('button');
+      button.innerHTML = buttonName;
+      button.value = buttonName;
+      button.style.height = '30px';
+      button.addEventListener('click', handler);
+      return button;
+    }
+    createAddButton = () => {
+      return createButton('CREATE', () => addHandler());
+    }
+    createCloseButton = () => {
+      return createButton('CLOSE', () => closeHandler());
+    }
+    createRemoveButoon = () => {
+      return createButton('REMOVE', () => removeHandler());
+    }
+    grandParent = (el) => {return el.parentNode.parentNode}
+    getName = (name) => {
+      const nameRoot = name.slice(0,name.length-1);
+      let i = name[name.length-1];
+      name = `${nameRoot}${++i}`;
+      return name;
+    }
+    createInput = (inputId) => {
+      const input = document.createElement('INPUT');
+      input.id = `inp${inputId}`;
+      input.setAttribute('type', 'checkbox');
+      input.style.cssFloat = 'left';
+      input.style.width = '17px'
+      input.style.height = '17px'
+      input.addEventListener('change', (evn) => inputChangeHandler(evn));
+      return input;
+    }
+    createBranch = (name) => {
+      const id = new Date().valueOf();
+      const li = document.createElement('li');
+      li.id = `li${id}`;
+      li.title = name;
+      const div = document.createElement('div');
+      div.id = `div${id}`;
+      const li_name = document.createElement('h4');
+      li_name.innerHTML = name;
+      li_name.style.margin = 0;
+      div.appendChild(li_name);
+      li.style.margin = '10px';
+      const input = createInput(id);
+      div.appendChild(input);
+      const address = document.createElement('h4');
+      address.innerHTML = (`|___ id = ${li.id}`);
+      address.value = 1;
+      address.style.margin = 0;
+      address.style.color = `rgb(${parseInt(Math.random()*300)}, 0, ${parseInt(Math.random()*200)})`;
+      div.appendChild(address);
+      li.appendChild(div);
+      //drag and drop//
+      li.draggable = true;
+      li.addEventListener('dragstart', (ev) => dragStartHandler(ev));
+      address.addEventListener('drop', (ev) => dropHandler_li(ev));
+      return li;
+    }
+    createUl = (name) => {
+      const id = new Date().valueOf();
+      let ul = document.createElement('ul');
+      ul.value = 'dropTargetUl';
+      ul.id = `Ul${id}`;
+      ul.title = `${name}`;
+      ul.style.paddingTop = '6px';
+      ul.style.paddingBottom = '6px';
+      //ul.style.border = '0.01px solid blue';
+      //drag and drop//
+      ul.addEventListener('drop', (ev) => dropHandler_Ul(ev));
+      ul.addEventListener('dragover', (ev) => ev.preventDefault());
+      ul.addEventListener('dragenter', (ev) => dragenterHandler(ev));
+      ul.addEventListener('dragleave', (ev) => ev.target.style.border = 'initial');
+      return ul;
+    }
+    inputChangeHandler = (ev) => {
+      const inputArr = document.querySelectorAll('input:checked');
+      for(inp of inputArr){
+        if(inp !== ev.target) inp.checked = false;
+      }
+      const close_button = document.querySelector('button[value = "CLOSE"]');
+      const remove_button = document.querySelector('button[value = "REMOVE"]');
+      const create_button = document.querySelector('button[value = "CREATE"]');
+      if(inputArr.length === 0) {
+        close_button.disabled = true;
+        remove_button.disabled = true;
+        create_button.disabled = true;
+      } else if(grandParent(ev.target).childElementCount < 2){
+        close_button.disabled = true;
+        remove_button.disabled = false;
+        create_button.disabled = false
+      } else {
+        close_button.disabled = false;
+        remove_button.disabled = false;
+        create_button.disabled = false;
+      }
+    }
+
+    checkButtonsState = () => {
+      const create_button = document.querySelector('button[value = "CREATE"]');
+      const close_button = document.querySelector('button[value = "CLOSE"]');
+      const remove_button = document.querySelector('button[value = "REMOVE"]');
+      if (document.querySelectorAll('input:checked').length === 0
+       && document.querySelectorAll('ul').length !== 0){
+         create_button.disabled = true;
+         close_button.disabled = true;
+         remove_button.disabled = true;
+       }
+       if (document.querySelectorAll('ul').length === 0){
+         create_button.disabled = false;
+         close_button.disabled = true;
+         remove_button.disabled = true;
+       }
+        if(document.querySelectorAll('input:checked').length === 1){
+         create_button.disabled = false;
+         close_button.disabled = false;
+         remove_button.disabled = false
+       }
+        if (document.querySelectorAll('ul').length === 1
+        && document.querySelectorAll('input:checked').length === 0){
+         create_button.disabled = true;
+         close_button.disabled = true;
+         remove_button.disabled = true;
+        }
+    }
+    addHandler = () => {
+      const rootName = 'Tree';
+      const input_arr = document.querySelectorAll('input:checked');
+      const parent = event.target.parentNode;
+      let ul = parent.nextSibling;
+
+      if(!ul) {
+        let ulBranch = createUl(rootName);
+        ulBranch.appendChild(createBranch(ulBranch.title+0));
+        parent.parentNode.appendChild(ulBranch);
+      } else if(input_arr.length) {
+          for(inp of input_arr) {
+            let title = grandParent(inp).title;
+            if(!inp.parentNode.nextSibling){
+              let ulBranch1 = createUl(title);
+              ulBranch1.appendChild(createBranch(title+0))
+              grandParent(inp).appendChild(ulBranch1);
+            } else {
+              let subUl = inp.parentNode.nextSibling;
+              const liTitle = subUl.lastChild.title;
+              subUl.appendChild(createBranch(getName(liTitle)));
+            }
+          }
+      } else {
+        const nextTitle = ul.lastChild.title;
+        ul.appendChild(createBranch(getName(nextTitle)));
+      }
+      const close_button = document.querySelector('button[value = "CLOSE"]');
+      close_button.innerHTML = 'CLOSE';
+      close_button.disabled = false;
+      checkButtonsState();
+    }
+    closeHandler = () => {
+      const input_arr = document.querySelectorAll('input:checked');
+      const close_button = document.querySelector('button[value = "CLOSE"]');
+      if(close_button.innerHTML =='CLOSE'){
+        close_button.innerHTML = 'OPEN';
+        for (inp of input_arr){
+          let ul = inp.parentNode.nextSibling;
+          inp.nextSibling.style.visibility = 'hidden';
+          ul.style.display = 'none';
+        }
+      } else {
+        close_button.innerHTML = 'CLOSE';
+        for (inp of input_arr){
+          let ul = inp.parentNode.nextSibling;
+          inp.nextSibling.style.visibility = 'visible';
+          ul.style.display = 'block';
+        }
+      }
+    }
+    removeHandler = () => {
+      const input_arr = document.querySelectorAll('input:checked');
+      for(inp of input_arr) {
+        if(grandParent(inp).parentNode.childElementCount > 1)
+          grandParent(inp).remove();
+        else grandParent(inp).parentNode.remove();
+      }
+      const close_button = document.querySelector('button[value = "CLOSE"]');
+      close_button.innerHTML = 'CLOSE';
+      checkButtonsState();
+    }
+    createHeader = () => {
+      const header = document.createElement('div');
+      const addButton = createAddButton();
+      header.appendChild(addButton);
+      const closeButton = createCloseButton();
+      closeButton.disabled = true;
+      header.appendChild(closeButton);
+      const removeButton = createRemoveButoon();
+      removeButton.disabled = true;
+      header.appendChild(removeButton);
+      header.style.margin = '30px';
+      return header;
+    }
+    const container = document.getElementById('root');
+    const header = createHeader();
+    container.appendChild(header);
+    /////////////////////////////////////////////////
+    //drag and drop//
+
+    getNearElIndex = (ev) => {
+      const children = ev.target.childNodes;
+      const el = children[0];
+      let index = children.length-1;
+      const last_Y = ev.clientY;
+      const initial_Y = dragElement(ev).getBoundingClientRect().top;
+      for(let i = 0; i < children.length; ++i){
+        const target_Y = children[i].getBoundingClientRect().top;
+        const dist = target_Y - last_Y;
+        const direction = last_Y - initial_Y;
+        if(dist > 0) {
+          if(direction < 0)//moving up
+            index = i;
+          else index = --i; //moving down
+          break;
+        }
+      }
+      return index;
+    }
+    setNames = () => {
+      const ulNodes = document.getElementsByTagName('ul');
+      const rootName = 'Tree';
+      ulNodes[0].title = rootName;
+      for(let i = 1; i < ulNodes.length; ++i){
+        ulNodes[i].title = ulNodes[i].parentNode.title;
+        let li_arr = ulNodes[i].childNodes;
+        let ulTitle = ulNodes[i].title;
+        li_arr[0].title = ulTitle+0;
+        li_arr[0].firstChild.firstChild.innerHTML = li_arr[0].title;
+        for(let j = 1; j < li_arr.length; ++j){
+          let li = li_arr[j];
+          li.title = ulTitle + j;
+          let div = li.firstChild;
+          div.firstChild.innerHTML = li.title;
+        }
+      }
+    }
+    const dragElement = (ev) => {
+      const moveItemIndex = ev.dataTransfer.getData("text");
+      const moveItem =  document.getElementById(moveItemIndex);
+      return moveItem;
+    }
+    dragStartHandler = (ev) => {
+      ev.stopImmediatePropagation();
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+    dropHandler_Ul = (ev) => {
+      ev.stopImmediatePropagation();
+      const drag_el = dragElement(ev);
+       if (ev.target.title === 'Tree'
+          || drag_el.contains(ev.target)
+          || ev.target.nodeName !== 'UL'
+          || (ev.target.firstChild == drag_el)){
+         ev.target.style.border = 'initial';
+         return;
+       }
+      const ul_arr = [];
+      let children = ev.target.childNodes;
+      const index = getNearElIndex(ev);
+      for (let i = 0; i < children.length; ++i){
+        if(children[i] !== drag_el)
+        ul_arr.push(children[i]);
+      }
+      if (drag_el.parentNode.childElementCount === 1)
+        drag_el.parentNode.remove();
+      ul_arr.splice(index,0,drag_el);
+      while(ev.target.firstChild) ev.target.firstChild.remove();
+      let i = 0;
+      while(ul_arr[i]) ev.target.appendChild(ul_arr[i++]);
+      setNames();
+      ev.target.style.border = 'initial';
+      ev.preventDefault();
+    };
+    dropHandler_li = (ev) => {
+      ev.stopImmediatePropagation();
+      const drag_el = dragElement(ev);
+      const parent_li = grandParent(ev.target);
+      if (parent_li.contains(drag_el)
+        ||  drag_el.contains(ev.target)
+        || ev.target.parentNode.nextSibling){
+        ev.target.style.border = 'initial';
+        return;
+      }
+      if (drag_el.parentNode.childElementCount === 1)
+        drag_el.parentNode.remove();
+      let title = parent_li.title;
+      let ulBranch = createUl(title);
+      ulBranch.appendChild(drag_el);
+      parent_li.appendChild(ulBranch);
+      ev.target.style.border = 'initial';
+      setNames();
+      ev.preventDefault();
+    };
+    dragenterHandler = (ev) => {
+      if (ev.target.value === 'dropTargetUl')
+        //ev.target.style.backgroundColor = 'hsla(328, 92%, 88%, 0.72)';
+        ev.target.style.border = '3px dotted hsla(328, 92%, 88%, 0.72)';
+      if (ev.target.value === 1)
+        ev.target.style.border = '3px dotted hsla(157, 68%, 59%, 0.58)';
+    }
+
+    </script>
+  </body>
+</html>

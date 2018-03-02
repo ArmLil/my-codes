@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Js App</title>
+   </head>
+   <body>
+      <!-- Root Element -->
+      <div id="root"></div>
+      <script type="text/javascript">
+      const bImage = "https://s-media-cache-ak0.pinimg.com/originals/8c/ae/dd/8caedd1b34013567eb8ddf6897458767.gif"
+
+      const container = document.getElementById("root");
+
+      container.style.position = "absolute";
+      container.style.top = "0";
+      container.style.bottom = "0";
+      container.style.right = "0";
+      container.style.left = "0";
+      container.style.margin = "10px";
+      container.style.border = "2px solid rgb(204, 0, 108)";
+      container.style.backgroundImage = "url(" + bImage + ")";
+      container.style.backgroundSize = "40%";
+
+      const clock = document.createElement("clock");
+      container.appendChild(clock);
+
+      clock.style.display = 'flex';
+      clock.style.position ='relative';
+      clock.style.justifyContent = 'center';
+      clock.style.alignItems = 'center';
+      clock.style.flexDirection = 'column';
+      clock.style.width = '130px';
+      clock.style.height = '90px';
+      clock.style.border = '2px solid rgb(204, 0, 108)';
+      clock.style.borderRadius = '40%';
+      clock.style.background = '-webkit-linear-gradient(hsla(328, 100%, 40%, 0.43) , yellow)'; /* For Safari 5.1 to 6.0 */
+      clock.style.background = '-o-linear-gradient(hsla(328, 100%, 40%, 0.43) , yellow)'; /* For Opera 11.1 to 12.0 */
+      clock.style.background = '-moz-linear-gradient(hsla(328, 100%, 40%, 0.43) , yellow)'; /* For Firefox 3.6 to 15 */
+      clock.style.background = 'linear-gradient(hsla(328, 100%, 40%, 0.43) , yellow)';
+      clock.style.top = '45%';
+      clock.style.left = '45%';
+
+      const h3 = document.createElement("h3")
+      h3.style.margin = "0";
+      h3.style.color = `rgb(204, 0, 108)`;
+
+      let message = document.createTextNode("Catch me!");
+      h3.appendChild(message);
+
+      clock.appendChild(h3);
+
+      let time = document.createElement("time");
+      time.innerHTML = new Date().toLocaleTimeString();
+
+      clock.appendChild(time);
+
+      digitalclock = () => {
+          let timenow=new Date();
+          time.innerHTML=timenow.toLocaleTimeString();
+          h3.style.color = `rgb(${parseInt(Math.random()*300)}, 0, ${parseInt(Math.random()*200)})`;
+      }
+
+      window.onload = () => {
+        setInterval(digitalclock,1000)
+      };
+
+      const messages = ['Opps!', 'Wow!', 'Try again!', 'Cannot do it?', 'ha-ha-ha'];
+      clock.onmouseover = () => {
+        message = messages[Math.floor((Math.random() * 5))];
+        h3.innerHTML = message;
+        h3.style.color = `rgb(${parseInt(Math.random()*300)}, 0, ${parseInt(Math.random()*200)})`;
+        clock.style.top = `${Math.random()*80}%`;
+        clock.style.left = `${Math.random()*80}%`;
+      };
+      </script>
+    </body>
+</html>

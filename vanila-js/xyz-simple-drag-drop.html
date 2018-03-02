@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>xyz</title>
+   </head>
+   <body>
+      <!-- Root Element -->
+      <div id="root"></div>
+      <script type="text/javascript">
+
+      const container = document.getElementById("root");
+      const input = document.createElement('INPUT');
+      input.setAttribute('type', 'text');
+      input.style.margin = '10px';
+      container.appendChild(input);
+
+      const item = (color) => {
+        const elem = document.createElement('div');
+        elem.style.border = `5px solid ${color}`;
+        elem.style.height = '30px';
+        elem.style.width = '30px';
+        elem.style.margin = '10px';
+        elem.draggable = true;
+        return elem;
+      }
+
+      const item1 = item('red');
+      item1.addEventListener('click', () => {
+        p1.innerHTML = 'red item coord = ' + showCoords(event);
+      })
+
+      console.log(item1.getBoundingClientRect());
+      const item1Size = item1.getBoundingClientRect();
+      //console.log(item1Size.top);
+
+      const parent1 = document.createElement('div');
+      parent1.style.border = '3px solid yellow';
+      parent1.style.height = '60px';
+      parent1.style.width = '150px';
+      parent1.style.margin = '10px';
+      parent1.style.display = 'flex';
+      container.appendChild(parent1);
+      parent1.appendChild(item1);
+
+      const p1 = document.createElement('p');
+      p1.value = ' p1 value'
+      container.appendChild(p1);
+      p1.innerHTML = 'red item coord = ' + p1.value;
+
+      const item2 = item('green')
+      item2.addEventListener('click', () => {
+        p2.innerHTML = 'green item coord = ' + showCoords(event);
+      })
+
+      const item3 = item('brown')
+
+      const parent2 = document.createElement('div');
+      parent2.style.border = '3px solid blue';
+      parent2.style.margin = '10px';
+      parent2.style.height = '60px';
+      parent2.style.width = '150px';
+      parent2.style.display = 'flex';
+
+      container.appendChild(parent2);
+      parent2.appendChild(item2);
+      parent2.appendChild(item3);
+
+      const p2 = document.createElement('p');
+      p2.value = ' p2 value';
+      container.appendChild(p2);
+      p2.innerHTML = 'green item coord = '+ p2.value;
+
+      showCoords = (event) => {
+          var x = event.clientX;
+          var y = event.clientY;
+          var coords = "X: " + x + ", Y: " + y;
+          return coords;
+      }
+
+      const input1 = document.createElement('INPUT');
+      input1.setAttribute('type', 'li');
+      input1.style.margin = '10px';
+      container.appendChild(input1);
+      document.onmousemove = () => {
+        input.setAttribute("value",showCoords(event))
+      }
+
+      let elem = document.elementFromPoint(55, 95);
+      // console.log(elem);
+      // console.log(item1.clientWidth)
+      // console.log(item1.clientX)
+      // console.log(pageXOffset);
+      parent1.id = '1';
+      parent2.id = '2';
+      parent1.addEventListener('drop', () => {
+        event.preventDefault();
+        let data = event.dataTransfer.getData("text");
+        console.log('dropping parent1', data);
+        event.target.appendChild(document.getElementById(data));
+        input1.setAttribute("value",showCoords(event));
+      })
+      parent1.addEventListener('dragover', () => {
+        console.log('dragovering parent1');
+        event.preventDefault();
+        input1.setAttribute("value",showCoords(event))
+      })
+      parent2.addEventListener('drop', () => {
+        event.preventDefault();
+        var data = event.dataTransfer.getData("text");
+        event.target.appendChild(document.getElementById(data));
+      })
+      parent2.addEventListener('dragover', () => {
+        event.preventDefault();
+        input1.setAttribute("value",showCoords(event))
+      })
+      item1.id = 'item1';
+      item1.addEventListener('dragstart', () => {
+        event.dataTransfer.setData("text", event.target.id);
+      });
+
+      item2.id = 'item2';
+      item2.addEventListener('dragstart', () => {
+        event.dataTransfer.setData("text", event.target.id);
+      });
+
+      item3.id = 'item3';
+      item3.addEventListener('dragstart', () => {
+        event.dataTransfer.setData("text", event.target.id);
+      });
+
+      </script>
+    </body>
+</html>

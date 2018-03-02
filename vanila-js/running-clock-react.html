@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>React App</title>
+   </head>
+
+   <style>
+    .container {
+      position: absolute;
+      top:0;
+      bottom:0;
+      right:0;
+      left:0;
+      margin:10px;
+      border: 2px solid rgb(204, 0, 108);
+      background-image: url(https://s-media-cache-ak0.pinimg.com/originals/8c/ae/dd/8caedd1b34013567eb8ddf6897458767.gif);
+      background-size: 40%;
+    }
+  </style>
+   <body>
+      <!-- Root Element -->
+      <div id="root" class="container"></div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+
+      <script type="text/babel">
+
+      const div1 =  {
+        display: 'flex',
+        position:'relative',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        width: '130px',
+        height: '90px',
+        border: '2px solid rgb(204, 0, 108)',
+        borderRadius: '40%',
+        background: '-webkit-linear-gradient(hsla(328, 100%, 40%, 0.43) , yellow)', /* For Safari 5.1 to 6.0 */
+        background: '-o-linear-gradient(hsla(328, 100%, 40%, 0.43) , yellow)', /* For Opera 11.1 to 12.0 */
+        background: '-moz-linear-gradient(hsla(328, 100%, 40%, 0.43) , yellow)', /* For Firefox 3.6 to 15 */
+        background: 'linear-gradient(hsla(328, 100%, 40%, 0.43) , yellow)',
+        top:'45%',
+        left:'45%',
+      };
+
+      class Clock extends React.Component {
+
+        state = {
+          message: 'Catch me!',
+          time: new Date(),
+          styles: div1
+        }
+
+        timerId = (() => {
+          setTimeout(this.timer = () => {
+            this.setState({time: new Date()});
+            this.timerId = setTimeout(this.timer, 1000);
+          },1000)
+        })();
+
+        overHandler = () => {
+          const messages = ['Opps!', 'Wow!', 'Try again!', 'Cannot do it?', 'ha-ha-ha'];
+          let randomMessage = messages[Math.floor((Math.random() * 5))];
+          this.setState({ message: randomMessage });
+          const div5 =  {
+            display: 'flex',
+            position:'relative',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+            width: '130px',
+            height: '90px',
+            border: '2px solid rgb(204, 0, 108)',
+            borderRadius: '40%',
+            background: '-webkit-linear-gradient(hsla(328, 100%, 40%, 0.43) , yellow)', /* For Safari 5.1 to 6.0 */
+            background: '-o-linear-gradient(hsla(328, 100%, 40%, 0.43) , yellow)', /* For Opera 11.1 to 12.0 */
+            background: '-moz-linear-gradient(hsla(328, 100%, 40%, 0.43) , yellow)', /* For Firefox 3.6 to 15 */
+            background: 'linear-gradient(hsla(328, 100%, 40%, 0.43) , yellow)',
+            top:`${Math.random()*80}%`,
+            left:`${Math.random()*80}%`,
+          };
+          this.setState({styles: div5});
+        }
+
+          render() {
+            return (
+              <div style={this.state.styles} onMouseOver={this.overHandler}>
+                  <h4 style={{ margin :0, color: `rgb(${Math.random()*300}, 0, ${Math.random()*200})`}}>{this.state.message}</h4>
+                {this.state.time.toLocaleTimeString()}
+              </div>
+            );
+          }
+      }
+
+      ReactDOM.render(
+          <Clock />,
+          document.getElementById('root')
+      );
+
+      </script>
+    </body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang='en'>
+   <head>
+      <meta charset='UTF-8'>
+      <title>glob-js</title>
+   </head>
+   <body>
+    <div id='root'></div>
+    <script type='text/javascript'>
+    createButton = (buttonName, handler) => {
+      const button = document.createElement('button');
+      button.innerHTML = buttonName;
+      button.value = buttonName;
+      button.addEventListener('click', handler);
+      return button;
+    }
+    createAddButton = () => {
+      return createButton('CREATE', () => addHandler());
+    }
+    createCloseButton = () => {
+      return createButton('CLOSE', () => closeHandler());
+    }
+    createRemoveButoon = () => {
+      return createButton('REMOVE', () => removeHandler());
+    }
+    getName = (name) => {
+      const nameRoot = name.slice(0,name.length-1);
+      let i = name[name.length-1];
+      name = `${nameRoot}${++i}`;
+      return name;
+    }
+    createInput = (inputId) => {
+      const input = document.createElement('INPUT');
+      input.id = inputId;
+      input.setAttribute('type', 'checkbox');
+      input.addEventListener('change', () => checkButtonsState());
+      return input;
+    }
+    createBranch = (name) => {
+      const li = document.createElement('li');
+      const div = document.createElement('div');
+      div.id = `d${name}`;
+      const li_name = document.createElement('h3');
+      li_name.innerHTML = name;
+      div.appendChild(li_name);
+      const input = createInput(name);
+      input.style.cssFloat = 'left';
+      div.appendChild(input);
+      const p = document.createElement('p');
+      p.innerHTML = ('|___');
+      div.appendChild(p);
+      li.appendChild(div);
+      return li;
+    }
+    createUl = (name) => {
+      let ul = document.createElement('ul');
+      ul.appendChild(createBranch(name+0));
+      return ul;
+    }
+    checkButtonsState = () => {
+      const inputArr = document.querySelectorAll('input:checked');
+      const close_button = document.querySelector('button[value = "CLOSE"]');
+      const remove_button = document.querySelector('button[value = "REMOVE"]');
+      if(!inputArr.length) {
+        close_button.disabled = true;
+        remove_button.disabled = true;
+      } else {
+        remove_button.disabled = false;
+        for(inp of inputArr){
+        let grandParent = inp.parentNode.parentNode;
+          if(grandParent.childElementCount < 2){
+            close_button.disabled = true;
+            break;
+          } else close_button.disabled = false;
+        }
+      }
+    }
+    addHandler = () => {
+      const rootName = 'Tree';
+      const input_arr = document.querySelectorAll('input:checked');
+      const parent = event.target.parentNode;
+      let ul = parent.nextSibling;
+      if(!ul) {
+        parent.parentNode.appendChild(createUl(rootName));
+      } else if(input_arr.length) {
+          for(inp of input_arr) {
+            if(!inp.parentNode.nextSibling){
+              inp.parentNode.parentNode.appendChild(createUl(inp.id));
+            } else {
+              let subUl = inp.parentNode.nextSibling;
+              const inputId = subUl.lastChild.querySelector('INPUT').id;
+              subUl.appendChild(createBranch(getName(inputId)));
+            }
+          }
+      } else {
+        const inputId = ul.lastChild.querySelector('INPUT').id;
+        ul.appendChild(createBranch(getName(inputId)));
+      }
+      checkButtonsState();
+    }
+    closeHandler = () => {
+      const input_arr = document.querySelectorAll('input:checked');
+      const close_button = document.querySelector('button[value = "CLOSE"]');
+      if(close_button.innerHTML =='CLOSE'){
+        close_button.innerHTML = 'OPEN';
+        for (inp of input_arr){
+          let ul = inp.parentNode.nextSibling;
+          inp.nextSibling.style.visibility = 'hidden';
+          ul.style.display = 'none';
+        }
+      } else {
+        close_button.innerHTML = 'CLOSE';
+        for (inp of input_arr){
+          let ul = inp.parentNode.nextSibling;
+          inp.nextSibling.style.visibility = 'visible';
+          ul.style.display = 'block';
+        }
+      }
+    }
+    removeHandler = () => {
+      const input_arr = document.querySelectorAll('input:checked');
+      for(inp of input_arr) {
+        let grandParent = inp.parentNode.parentNode;
+        if(grandParent.parentNode.childElementCount > 1)
+          grandParent.remove();
+        else grandParent.parentNode.remove();
+      }
+      const close_button = document.querySelector('button[value = "CLOSE"]');
+      close_button.innerHTML = 'CLOSE';
+      checkButtonsState();
+    }
+    createHeader = () => {
+      const header = document.createElement('div');
+      const addButton = createAddButton();
+      header.appendChild(addButton);
+      const closeButton = createCloseButton();
+      closeButton.disabled = true;
+      header.appendChild(closeButton);
+      const removeButton = createRemoveButoon();
+      removeButton.disabled = true;
+      header.appendChild(removeButton);
+      header.style.margin = '30px';
+      return header;
+    }
+    const container = document.getElementById('root');
+    container.appendChild(createHeader());
+    </script>
+  </body>
+</html>
