@@ -39,7 +39,6 @@ export class Photos extends React.Component {
 
   render() {
     const { loading, error, photos, username } = this.props
-    console.log('...render... Photos, this.props', this.props)
      if (loading) {
        return <List component={LoadingIndicator} /> }
      if (error) {
@@ -48,12 +47,15 @@ export class Photos extends React.Component {
                </CenteredSection>
      }
      if (photos) {
+       console.log(photos[60], this.props.limit)
       return (
         <div style={{display:'flex', height: '40em'}}>
             <HomePage></HomePage>
          <Grid style={{overflow:'scroll'}}>
              {
                photos.map((photo) => {
+
+                 //console.log(photo.url_z, ++i)
                  const photo_id=photo.id
                  const {farm, server, url_id} = this.singleRoute(photo)
                  return (
