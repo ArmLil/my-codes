@@ -5,6 +5,7 @@ import List from '../../components/List'
 import LoadingIndicator from '../../components/LoadingIndicator'
 import Grid from '../../styling-components/Grid'
 import CenteredSection from '../../styling-components/CenteredSection'
+import BodyContainer from '../../styling-components/BodyContainer'
 import { fetchPhotos } from './searchPhotos'
 import { loadPhotos } from '../../actions'
 import Item from '../../components/Item'
@@ -38,6 +39,8 @@ export class Photos extends React.Component {
   }
 
   render() {
+    console.log('this.props=', this.props)
+    var i = 0;
     const { loading, error, photos, username } = this.props
      if (loading) {
        return <List component={LoadingIndicator} /> }
@@ -47,15 +50,14 @@ export class Photos extends React.Component {
                </CenteredSection>
      }
      if (photos) {
-       console.log(photos[60], this.props.limit)
+       console.log(photos.length, this.props.limit)
       return (
-        <div style={{display:'flex', height: '40em'}}>
-            <HomePage></HomePage>
+        <BodyContainer>
+         <HomePage></HomePage>
          <Grid style={{overflow:'scroll'}}>
              {
                photos.map((photo) => {
-
-                 //console.log(photo.url_z, ++i)
+                 console.log(photo, ++i)
                  const photo_id=photo.id
                  const {farm, server, url_id} = this.singleRoute(photo)
                  return (
@@ -69,7 +71,7 @@ export class Photos extends React.Component {
                  )})
               }
            </Grid>
-        </div>
+        </BodyContainer>
        );
      }
      return <div></div>;
