@@ -62,7 +62,7 @@ Routes.push({
 
 Routes.push({
   method: 'POST',
-  path: '/create/{prev}',
+  path: '/create/{prev}',//prev: 'offset=0&limit=5'
   config: {
     handler: Handlers.create,
     validate: {

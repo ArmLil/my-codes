@@ -34,7 +34,7 @@ Routes.push({
         tweet: Joi.string().required().min(2).max(140),
       }
     },
-    description: 'This creates tweet by requset body',
+    description: 'This creates tweet by request body',
     tags : ['api']
   }
 })
