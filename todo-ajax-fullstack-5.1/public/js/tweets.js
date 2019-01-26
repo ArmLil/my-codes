@@ -5,6 +5,7 @@ const loadTweets = () => {
   xhr.open('GET', '/api/tweets', true)
 
   xhr.onload = function(){
+    console.log('data is comming from frontend...')
     if(this.status == 200){
       let tweets = JSON.parse(this.responseText)
       let output = '<h4>Tweets</h4>'

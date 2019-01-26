@@ -50,8 +50,12 @@ Handlers.apiTweetsEndpoint = (req, reply) => {
 }
 
 Handlers.rootEndpoint = (req, reply) => {
+  console.log('rootendpoint');
   return Database.getTweets()
-  .then(tweets => reply.view('tweets', tweets))
+  .then(tweets => {
+    console.log('rootendpoint',tweets);
+    reply.view('tweets', tweets)
+  })
   .catch((err) => reply('Opps ' + err))
 }
 

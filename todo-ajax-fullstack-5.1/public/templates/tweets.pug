@@ -17,5 +17,22 @@ html
           <br /> &nbsp;
           button(id='create') Create
     ul(id='users')
+      h4 Tweets <br />
+      each tweet in tweets
+        li
+          form.update-tweet(action=tweet.id method='PUT')
+            label(for='user' style={color: tweet.colour}) Username: &nbsp #{tweet.user} &nbsp
+            input(name='user', type='text', placeholder=' update username', autofocus='')
+            <br /><br />
+            label(for='tweet' style={color: tweet.colour}) tweet: #{tweet.tweet} &nbsp;
+            input(name='tweet', type='text', placeholder=' update tweet', autofocus='')
+            <br /><br />
+            input(name='update', type='submit', value="Update")
+          a(href=tweet.id style={color: tweet.colour})  id: #{tweet.id} <br /> <br />
+          form.delete-tweet(action=tweet.id method='DELETE')
+            input(name='delete', type='submit', value="Delete")
+          <br /><br />
+      else
+        li There are no tweets
 
     | <script type="text/javascript" src="/js/tweets.js"></script>
