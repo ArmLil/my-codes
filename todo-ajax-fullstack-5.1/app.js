@@ -12,7 +12,7 @@ const routes = require('./routes')
 
 server.connection({
   host: 'localhost',
-  port: 5000,
+  port: 5050,
   router: {
     stripTrailingSlash: true
   },

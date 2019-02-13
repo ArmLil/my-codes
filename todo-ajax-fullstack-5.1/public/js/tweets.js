@@ -14,18 +14,20 @@ const loadTweets = () => {
           output += `
           <li>
             <form id=tweet-${tweet.id}>
-              <label for="user" style="color: ${tweet.colour}"> username: &nbsp ${tweet.user} &nbsp</label>
-              <input name="user" type="text" placeholder="update username" autofocus="" >
-              <label for="tweet" style="color:${tweet.colour}"> tweet: &nbsp ${tweet.tweet} &nbsp</label>
-              <input name="tweet" type="text" placeholder="update tweet" autofocus="">
-              <button class="tweetUpdate">Update</button>
-              <a name="${tweet.id}" href="${tweet.id}" style="color:${tweet.colour}">id: ${tweet.id} <br> </a>
+              <label for="user" style="color: ${tweet.colour}"> username: &nbsp ${tweet.user} &nbsp</label> <br /><br />
+              <input name="user" type="text" placeholder="update username" autofocus="" > <br /><br />
+              <label for="tweet" style="color:${tweet.colour}"> tweet: &nbsp ${tweet.tweet} &nbsp</label> <br /><br />
+              <input name="tweet" type="text" placeholder="update tweet" autofocus=""> <br /><br />
+              <button class="tweetUpdate">Update</button> <br /><br />
+              <a name="${tweet.id}" href="${tweet.id}" style="color:${tweet.colour}">id: ${tweet.id} </a> <br /><br />
             </form>
-            <button onclick="loadDelete(${tweet.id})">Delete</button>
-          </li>`;
+            <button onclick="loadDelete(${tweet.id})">Delete</button><br /><br />
+          </li> <br /><br />`;
         })
       }
       const usersList = document.getElementById("users")
+      usersList.style.display = 'flex'
+      usersList.style.flexDirection = 'column'
       users.innerHTML = output // after this point that means the ouput is in the DOM
 
       // load an array with the items

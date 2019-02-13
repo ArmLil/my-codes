@@ -29,7 +29,13 @@ export class Photos extends React.Component {
     this.props.onPhotoPageLoad(username,term,limit)
   }
   singleRoute(photo){
-    const url = photo.url_z.split('//')[1]
+    console.log({photo});
+    let url_i
+    if(photo.url_z) url_i = photo.url_z
+    else if (photo.url_m) url_i = photo.url_m
+    else if (photo.url_s) url_i = photo.url_s
+    else if (photo.url_q) url_i = photo.url_q
+    const url = url_i.split('//')[1]
     const url_arr = url.split('/')
     return {
       farm: url_arr[0],
